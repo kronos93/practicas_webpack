@@ -1,9 +1,28 @@
-@import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+//@import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 body {
-    background: url('../img/semantics.jpg') no-repeat center center;
+    margin: 0;
+    background-image: url('../img/semantics.jpg');
+    background-size: cover;
+    text-transform: uppercase;
     p {
         color: red;
         text-shadow: 1px 1px 12px rgba(255, 255, 255, .65);
         font-size: 40px;
     }
+}
+
+img {
+    margin-top: 270px;
+    width: 100%;
+    z-index: -10;
+    display: flex;
+    transition: 1s all ease;
+    &:hover {
+        transform: rotate(360deg);
+        opacity: 0;
+    }
+}
+
+:fullscreen a {
+    display: flex
 }

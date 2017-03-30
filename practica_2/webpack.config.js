@@ -19,11 +19,29 @@ var rulesSass = (process.env.NODE_ENV === 'production') ? {
     use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             //resolve-url-loader may be chained before sass-loader if necessary 
-            use: ['css-loader', 'sass-loader']
+            use: [{
+                    loader: 'css-loader',
+                    options: {
+                        importLoaders: 1
+                    }
+                },
+                'postcss-loader',
+                'sass-loader'
+            ]
         }) //Sin HMR
 } : {
     test: /\.scss$/,
-    use: ['style-loader', 'css-loader', 'sass-loader'], //Para HMR
+    use: [
+        'style-loader',
+        {
+            loader: 'css-loader',
+            options: {
+                importLoaders: 1
+            }
+        },
+        'postcss-loader',
+        'sass-loader'
+    ], //Para HMR
 };
 var entry = {
     'app': ['./src/js/app.js'],
@@ -44,7 +62,16 @@ const config = {
     module: {
         rules: [{
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1
+                        }
+                    },
+                    'postcss-loader'
+                ]
             },
             rulesSass,
             {
