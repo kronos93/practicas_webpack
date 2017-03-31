@@ -1,9 +1,13 @@
 //@import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+//@import '../../node_modules/font-awesome/scss/font-awesome.scss';
+$fa-font-path: "~font-awesome/fonts"; //Variable de SASS para el import
+@import "~font-awesome/scss/font-awesome";
 body {
     margin: 0;
     background-image: url('../img/semantics.jpg');
     background-size: cover;
     text-transform: uppercase;
+    font-family: Arial, Helvetica, sans-serif;
     p {
         color: red;
         text-shadow: 1px 1px 12px rgba(255, 255, 255, .65);
@@ -25,4 +29,8 @@ img {
 
 :fullscreen a {
     display: flex
+}
+
+a {
+    display: flex;
 }

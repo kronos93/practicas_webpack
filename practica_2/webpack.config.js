@@ -80,7 +80,7 @@ const config = {
                 //use: ['file-loader?name=[name].[ext]&outputPath=img/&publicPath=img/'],
             },
             {
-                test: /\.(svg|eot|ttf|woff|woff2)$/,
+                test: /\.(eot|woff|woff2|ttf|svg)(\?v=\d+\.\d+\.\d+)?$/,
                 use: ['url-loader'],
             },
             {

@@ -1,4 +1,5 @@
-const css = require('../css/app.scss');
+require('../css/app.scss');
+
 class Persona {
     saludo() {
         console.log('Hola! Soy una persona');
