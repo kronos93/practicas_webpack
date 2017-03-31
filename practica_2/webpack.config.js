@@ -2,18 +2,23 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const { resolve } = require('path');
 const webpack = require('webpack');
-/*
-    'react-hot-loader/patch',
-    // activate HMR for React
-
-    'webpack-dev-server/client?http://localhost:8080',
-    // bundle the client for webpack-dev-server
-    // and connect to the provided endpoint
-
-    'webpack/hot/only-dev-server',
-    // bundle the client for hot reloading
-    // only- means to only hot reload for successful updates
-*/
+//const validate = require('webpack-validator');
+var entry = {
+    'app': ['./src/js/app.js'],
+    'contact': ['./src/js/contact.js']
+};
+//Alterar entry para HMR
+if (process.env.NODE_ENV !== 'production') {
+    for (let ent in entry) {
+        entry[ent].unshift('webpack-dev-server/client?http://localhost:9000');
+        // bundle the client for webpack-dev-server
+        // and connect to the provided endpoint
+        entry[ent].unshift('webpack/hot/only-dev-server');
+        // bundle the client for hot reloading
+        // only- means to only hot reload for successful updates
+    }
+}
+//Regla development/production para SASS
 var rulesSass = (process.env.NODE_ENV === 'production') ? {
     test: /\.scss$/,
     use: ExtractTextPlugin.extract({
@@ -43,21 +48,14 @@ var rulesSass = (process.env.NODE_ENV === 'production') ? {
         'sass-loader'
     ], //Para HMR
 };
-var entry = {
-    'app': ['./src/js/app.js'],
-    'contact': ['./src/js/contact.js']
-}
-if (process.env.NODE_ENV !== 'production') {
-    for (let ent in entry) {
-        entry[ent].unshift('webpack-dev-server/client?http://localhost:9000');
-        entry[ent].unshift('webpack/hot/only-dev-server');
-    }
-}
 const config = {
     entry: entry,
     output: {
         path: resolve(__dirname, 'dist'),
         filename: '[name].js' //Nombre del archivo de salida
+    },
+    externals: {
+        jquery: 'jQuery'
     },
     module: {
         rules: [{
@@ -138,4 +136,4 @@ const config = {
     }
 }
 
-module.exports = config;
+module.exports = (config);
