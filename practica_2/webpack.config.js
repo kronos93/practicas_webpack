@@ -52,7 +52,9 @@ const config = {
     entry: entry,
     output: {
         path: resolve(__dirname, 'dist'),
-        filename: '[name].js' //Nombre del archivo de salida
+        //publicPath: "http://localhost/practicas_webpack/practica_2/dist/",
+        filename: '[name].js', //Nombre del archivo de salida
+
     },
     externals: {
         jquery: 'jQuery'
@@ -73,25 +75,39 @@ const config = {
             },
             rulesSass,
             {
-                test: /\.(png|jpg|gif)$/,
-                use: ['file-loader?name=[name].[ext]'],
-                //use: ['file-loader?name=[name].[ext]&outputPath=img/&publicPath=img/'],
+                test: /\.(gif|png|jpe?g)$/i,
+                use: [
+                    //'file-loader?name=[name].[ext]&outputPath=img/&publicPath=http://localhost/practicas_webpack/practica_2/dist/img/',
+                    'file-loader?name=[name].[ext]',
+                    {
+                        loader: 'image-webpack-loader',
+                        options: {}
+                    }
+                ]
             },
             {
-                test: /\.(eot|woff|woff2|ttf|svg)(\?v=\d+\.\d+\.\d+)?$/,
-                use: ['url-loader'],
+                test: /\.(woff|woff2|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                use: ['url-loader']
+            },
+            {
+                test: /\.(ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+                use: 'file-loader?name=[name].[ext]',
+                //use: 'file-loader?name=[name].[ext]&publicPath=http://localhost/practicas_webpack/practica_2/dist/css/fonts/&outputPath=css/fonts/',
             },
             {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
-                use: {
+                use: [{
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env']
+                        presets: [
+                            ['env', { modules: false }]
+                        ],
+                        plugins: ['syntax-dynamic-import']
                     }
-                }
+                }]
             }
-        ]
+        ],
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -116,10 +132,12 @@ const config = {
             hash: true,
 
         }),
-        new ExtractTextPlugin("bundle.css"),
+        new webpack.DefinePlugin({
+            PRODUCTION: JSON.stringify(process.env.NODE_ENV === 'production')
+        }),
+        new ExtractTextPlugin("./css/bundle.css"),
         new webpack.HotModuleReplacementPlugin(),
         // enable HMR globally
-
         new webpack.NamedModulesPlugin(),
         // prints more readable module names in the browser console on HMR updates
     ],

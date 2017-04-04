@@ -10,6 +10,13 @@ console.log("Loggin into webpack 2.0");
 console.log("Apps");
 let persona = new Persona();
 persona.saludo();
-if (module.hot) {
+
+/*if (module.hot) {
     module.hot.accept();
+}*/
+if (!PRODUCTION) {
+    console.log("Producción es: " + PRODUCTION);
+    require.ensure([], function(require) {
+        require('./hot-module.js');
+    }, "samuel.js");
 }
