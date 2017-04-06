@@ -97,15 +97,7 @@ const config = {
             {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
-                use: [{
-                    loader: 'babel-loader',
-                    options: {
-                        presets: [
-                            ['env', { modules: false }]
-                        ],
-                        plugins: ['syntax-dynamic-import']
-                    }
-                }]
+                use: "babel-loader"
             }
         ],
     },
