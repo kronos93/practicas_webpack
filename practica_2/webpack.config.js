@@ -1,8 +1,10 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const { resolve } = require('path');
 const webpack = require('webpack');
-//const validate = require('webpack-validator');
+
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
 var entry = {
     'app': ['./src/js/app.js'],
     'contact': ['./src/js/contact.js']
@@ -48,13 +50,14 @@ var rulesSass = (process.env.NODE_ENV === 'production') ? {
         'sass-loader'
     ], //Para HMR
 };
+
 const config = {
     entry: entry,
     output: {
         path: resolve(__dirname, 'dist'),
         //publicPath: "http://localhost/practicas_webpack/practica_2/dist/",
+        publicPath: 'http://localhost/practicas_webpack/practica_2/dist/',
         filename: '[name].js', //Nombre del archivo de salida
-
     },
     externals: {
         jquery: 'jQuery'
@@ -78,7 +81,14 @@ const config = {
                 test: /\.(gif|png|jpe?g)$/i,
                 use: [
                     //'file-loader?name=[name].[ext]&outputPath=img/&publicPath=http://localhost/practicas_webpack/practica_2/dist/img/',
-                    'file-loader?name=[name].[ext]',
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: "[name].[ext]",
+                            outputPath: "img/",
+                            publicPath: 'http://localhost/practicas_webpack/practica_2/dist/img/',
+                        }
+                    },
                     {
                         loader: 'image-webpack-loader',
                         options: {}
@@ -87,12 +97,19 @@ const config = {
             },
             {
                 test: /\.(woff|woff2|svg)(\?v=\d+\.\d+\.\d+)?$/,
-                use: ['url-loader']
+                use: 'url-loader'
             },
             {
                 test: /\.(ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-                use: 'file-loader?name=[name].[ext]',
-                //use: 'file-loader?name=[name].[ext]&publicPath=http://localhost/practicas_webpack/practica_2/dist/css/fonts/&outputPath=css/fonts/',
+                use: [{
+                    //use: 'file-loader?name=[name].[ext]&publicPath=http://localhost/practicas_webpack/practica_2/dist/css/fonts/&outputPath=css/fonts/',
+                    loader: 'file-loader',
+                    options: {
+                        name: "[name].[ext]",
+                        outputPath: "fonts/",
+                        publicPath: 'http://localhost/practicas_webpack/practica_2/dist/fonts/',
+                    }
+                }]
             },
             {
                 test: /\.js$/,
@@ -132,6 +149,7 @@ const config = {
         // enable HMR globally
         new webpack.NamedModulesPlugin(),
         // prints more readable module names in the browser console on HMR updates
+        new CleanWebpackPlugin(['dist']),
     ],
     devServer: {
         contentBase: resolve(__dirname, 'dist'),
