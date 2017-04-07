@@ -8,12 +8,15 @@ class Persona {
 }
 console.log("Loggin into webpack 2.0");
 console.log("Apps");
+console.log("Loggin into webpack 2.0");
+console.log("Apps");
 let persona = new Persona();
 persona.saludo();
 
 
 if (!PRODUCTION) {
     console.log("Producción es: " + PRODUCTION);
+    console.log(module.hot);
     if (module.hot) {
         module.hot.accept();
     }
