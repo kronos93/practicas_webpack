@@ -1,3 +1,4 @@
+<!-- split header.html -->
 <?php 
 function base_url(){
     return 'http://localhost/debug/js/practicas_webpack/practica_2/dist/';
@@ -16,6 +17,7 @@ function base_url(){
 </head>
 
 <body>
+    <!-- split content.html -->
     <div class="container">
         <h2>Panel Heading</h2>
         <div class="panel panel-default">
@@ -56,6 +58,7 @@ function base_url(){
     <img src='<%= require( "../img/performance.jpg") %>' alt="">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!--<script type="text/javascript" src="<?= base_url() ?>[name].js"></script>-->
+    <!-- split footer.html -->
 </body>
 
 </html>
