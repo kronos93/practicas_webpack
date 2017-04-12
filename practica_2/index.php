@@ -4,6 +4,5 @@
 ?>
     <p>Esto sigue el template</p>
 <?php
-    require('./dist/scripts.php');
     require('./dist/footer.php');
 ?>

@@ -138,7 +138,7 @@ const config = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            filename: 'index.html',
+            filename: 'index.php',
             template: './src/templates/index.html',
             title: 'Practicas WEBPACK',
             excludeChunks: ['contact'],
@@ -149,52 +149,52 @@ const config = {
             cache: false,
             alwaysWriteToDisk: true,
         }),
-        new HtmlWebpackPlugin({
-            filename: 'contacto.html',
-            template: './src/templates/contacto.html',
-            title: 'Contacto WEBPACK',
-            chunks: ['contact'],
-            minify: {
-                collapseWhitespace: true
-            },
-            /*hash: true,*/
-            cache: false,
-            alwaysWriteToDisk: true,
-        }),
-        new HtmlWebpackPlugin({
-            filename: 'header.php',
-            template: './src/templates/header.php',
-            minify: {
-                collapseWhitespace: true
-            },
-            inject: false,
-            hash: true,
-            cache: false,
-            alwaysWriteToDisk: true,
-        }),
-        new HtmlWebpackPlugin({
-            filename: 'scripts.php',
-            template: './src/templates/scripts.php',
-            minify: {
-                collapseWhitespace: true
-            },
-            inject: true,
-            hash: false,
-            cache: false,
-            alwaysWriteToDisk: true,
-        }),
-        new HtmlWebpackPlugin({
-            filename: 'footer.php',
-            template: './src/templates/footer.php',
-            minify: {
-                collapseWhitespace: true
-            },
-            xhtml: true,
-            inject: false,
-            hash: false,
-            cache: false,
-            alwaysWriteToDisk: true,
-        }),
+        /* new HtmlWebpackPlugin({
+             filename: 'contacto.html',
+             template: './src/templates/contacto.html',
+             title: 'Contacto WEBPACK',
+             chunks: ['contact'],
+             minify: {
+                 collapseWhitespace: true
+             },
+             hash: true,
+             cache: false,
+             alwaysWriteToDisk: true,
+         }),
+         new HtmlWebpackPlugin({
+             filename: 'header.php',
+             template: './src/templates/header.php',
+             minify: {
+                 collapseWhitespace: true
+             },
+             inject: false,
+             hash: true,
+             cache: false,
+             alwaysWriteToDisk: true,
+         }),
+         new HtmlWebpackPlugin({
+             filename: 'scripts.php',
+             template: './src/templates/scripts.php',
+             minify: {
+                 collapseWhitespace: true
+             },
+             inject: true,
+             hash: false,
+             cache: false,
+             alwaysWriteToDisk: true,
+         }),
+         new HtmlWebpackPlugin({
+             filename: 'footer.php',
+             template: './src/templates/footer.php',
+             minify: {
+                 collapseWhitespace: true
+             },
+             xhtml: true,
+             inject: false,
+             hash: false,
+             cache: false,
+             alwaysWriteToDisk: true,
+         }),*/
         new HtmlWebpackHarddiskPlugin({ outputPath: resolve(__dirname, 'dist') }),
         new webpack.DefinePlugin({
             PRODUCTION: JSON.stringify(process.env.NODE_ENV === 'production')
@@ -204,7 +204,7 @@ const config = {
         // enable HMR globally
         new webpack.NamedModulesPlugin(),
         // prints more readable module names in the browser console on HMR updates
-        new CleanWebpackPlugin(['dist']),
+        //new CleanWebpackPlugin(['dist']),
     ],
     devServer: {
         contentBase: resolve(__dirname, 'dist'),
@@ -217,7 +217,7 @@ const config = {
     stats: {
         colors: true
     },
-    devtool: 'source-map'
+    //devtool: 'source-map'
 }
 
 module.exports = (config);
