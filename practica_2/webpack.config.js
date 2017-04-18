@@ -4,10 +4,10 @@ const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 var PRODUCTION = process.env.NODE_ENV === 'production';
 
-var publicPath = PRODUCTION ? 'http://localhost/debug/js/practicas_webpack/practica_2/dist/' : 'http://localhost:9000/';
+var publicPath = PRODUCTION ? 'http://192.168.1.10/debug/js/practicas_webpack/practica_2/dist/' : 'http://192.168.1.10:9000/';
 
 var entry = {
     'app': ['./src/js/app.js'],
@@ -16,15 +16,15 @@ var entry = {
 //Alterar entry para HMR
 if (process.env.NODE_ENV !== 'production') {
     for (let ent in entry) {
-        entry[ent].unshift('webpack-dev-server/client?' + publicPath);
+        //entry[ent].unshift('webpack-dev-server/client?' + publicPath);
         // bundle the client for webpack-dev-server
         // and connect to the provided endpoint
-        entry[ent].unshift('webpack/hot/only-dev-server');
+        //entry[ent].unshift('webpack/hot/only-dev-server');
         // bundle the client for hot reloading
         // only- means to only hot reload for successful updates
     }
 }
-
+console.log(entry);
 //Regla development/production para SASS
 var rulesSass = (process.env.NODE_ENV === 'production') ? {
     test: /\.scss$/,
@@ -138,15 +138,13 @@ const config = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            filename: 'index.php',
+            filename: 'index.html',
             template: './src/templates/index.html',
             title: 'Practicas WEBPACK',
             excludeChunks: ['contact'],
             minify: {
                 collapseWhitespace: true
             },
-            /*hash: true,*/
-            cache: false,
             alwaysWriteToDisk: true,
         }),
         /* new HtmlWebpackPlugin({
@@ -195,11 +193,30 @@ const config = {
              cache: false,
              alwaysWriteToDisk: true,
          }),*/
-        new HtmlWebpackHarddiskPlugin({ outputPath: resolve(__dirname, 'dist') }),
+        //new HtmlWebpackHarddiskPlugin({ outputPath: resolve(__dirname, 'dist') }),
+        new HtmlWebpackHarddiskPlugin(),
         new webpack.DefinePlugin({
             PRODUCTION: JSON.stringify(process.env.NODE_ENV === 'production')
         }),
         new ExtractTextPlugin("./css/bundle.css"),
+        /*        new BrowserSyncPlugin(
+                    // BrowserSync options 
+                    {
+                        // browse to http://localhost:3000/ during development 
+                        host: 'localhost',
+                        port: 9001,
+                        // proxy the Webpack Dev Server endpoint 
+                        // (which should be serving on http://localhost:3100/) 
+                        // through BrowserSync 
+                        proxy: 'http://localhost:9000/'
+                    },
+                    // plugin options 
+                    {
+                        // prevent BrowserSync from reloading the page 
+                        // and let Webpack Dev Server take care of this 
+                        reload: false
+                    }
+                ),*/
         new webpack.HotModuleReplacementPlugin(),
         // enable HMR globally
         new webpack.NamedModulesPlugin(),
@@ -208,16 +225,18 @@ const config = {
     ],
     devServer: {
         contentBase: resolve(__dirname, 'dist'),
+        host: '192.168.1.10',
         compress: true,
         port: 9000,
         stats: "errors-only", //PRESET para solo errores
-        open: false, //Abre el navegador
+        watchContentBase: true,
+        open: true, //Abre el navegador
         hot: true,
     },
     stats: {
         colors: true
     },
     //devtool: 'source-map'
-}
+};
 
 module.exports = (config);
