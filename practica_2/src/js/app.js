@@ -1,6 +1,6 @@
-require('../css/app.scss');
 import $ from 'jquery';
-
+let css = require('../css/app.scss');
+console.log(css);
 require('bootstrap/dist/js/bootstrap.min.js');
 class Persona {
     saludo() {

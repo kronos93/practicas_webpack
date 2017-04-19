@@ -240,3 +240,61 @@ const config = {
 };
 
 module.exports = (config);
+
+
+
+//Globals
+const webpack = require('webpack');
+const { resolve } = require('path');
+//Plugins
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CleanWebpackPlugin = require('clean-webpack-plugin'); //installed via npm
+//Vars 
+const extractSCSS = new ExtractTextPlugin('./css/bundle.css');
+var sourceMap = false;
+const config = {
+    entry: {
+        bundle: ['./src/js/index.js'],
+
+    },
+    module: {
+        rules: [{
+            test: /\.scss$/,
+            use: extractSCSS.extract({
+                    fallback: 'style-loader',
+                    //resolve-url-loader may be chained before sass-loader if necessary 
+                    use: [{
+                            loader: 'css-loader',
+                            options: {
+                                importLoaders: 1,
+                                sourceMap: sourceMap,
+                            }
+                        },
+                        /*{
+                            loader: 'postcss-loader'
+                        },*/
+                        {
+                            loader: "sass-loader",
+                            options: {
+                                sourceMap: sourceMap
+                            }
+                        }
+                    ]
+                }) //Sin HMRs
+        }],
+    },
+    plugins: [
+        //Clean dist folder
+        new CleanWebpackPlugin(['./dist/*.*']),
+        //Extrac CSS from SASS
+        extractSCSS,
+    ],
+    output: {
+        path: resolve(__dirname, 'dist'),
+        filename: '[name].js'
+    },
+    stats: {
+        colors: true,
+    }
+};
+module.exports = config;

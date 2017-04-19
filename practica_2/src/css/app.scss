@@ -2,26 +2,7 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import "~bootstrap-sass/assets/stylesheets/_bootstrap";
 $fa-font-path: "~font-awesome/fonts"; //Variable de SASS para el import
 @import "~font-awesome/scss/font-awesome";
-body {
-    margin: 0;
-    background-image: url('../img/semantics.jpg');
-    background-size: cover;
-    text-transform: uppercase;
-    font-family: Arial, Helvetica, sans-serif;
-    p {
-        border: 2px solid rgba(0, 0, 0, 0.3);
-        box-shadow: 0px 0px 75px white inset;
-        color: teal;
-        text-align: center;
-        text-shadow: 1px 1px 1px rgba(255, 255, 255, .3);
-        font-size: 50px;
-        transition: box-shadow 1s ease;
-        &:hover {
-            box-shadow: none;
-        }
-    }
-}
-
+@import "./base/nivel1/base.scss";
 img {
     margin-top: 270px;
     width: 100%;
