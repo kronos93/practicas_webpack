@@ -241,7 +241,7 @@ const config = {
 
 module.exports = (config);
 
-
+/*
 
 //Globals
 const webpack = require('webpack');
@@ -272,7 +272,7 @@ const config = {
                         },
                         /*{
                             loader: 'postcss-loader'
-                        },*/
+                        },* /
                         {
                             loader: "sass-loader",
                             options: {
@@ -297,4 +297,4 @@ const config = {
         colors: true,
     }
 };
-module.exports = config;
+module.exports = config;*/
