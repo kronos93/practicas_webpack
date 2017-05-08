@@ -4,14 +4,14 @@ const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+/*const BrowserSyncPlugin = require('browser-sync-webpack-plugin');*/
 var PRODUCTION = process.env.NODE_ENV === 'production';
 
-var publicPath = PRODUCTION ? 'http://192.168.1.10/debug/js/practicas_webpack/practica_2/dist/' : 'http://192.168.1.10:9000/';
+var publicPath = PRODUCTION ? '192.168.0.2/debug/js/practicas_webpack/practica_2/dist/' : 'http://192.168.0.2:9000/';
 
 var entry = {
-    'app': ['./src/js/app.js'],
-    //'contact': ['./src/js/contact.js']
+    'app': ['./src/js/app.js']
+        //'contact': ['./src/js/contact.js']
 };
 //Alterar entry para HMR
 if (process.env.NODE_ENV !== 'production') {
@@ -225,7 +225,7 @@ const config = {
     ],
     devServer: {
         contentBase: resolve(__dirname, 'dist'),
-        host: '192.168.1.10',
+        host: '192.168.0.2',
         compress: true,
         port: 9000,
         stats: "errors-only", //PRESET para solo errores

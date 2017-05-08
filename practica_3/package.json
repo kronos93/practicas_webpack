@@ -2,17 +2,25 @@
     "name": "practica_3",
     "version": "1.0.0",
     "description": "",
-    "main": "gulpfile.js",
-    "dependencies": {
-
-    },
+    "main": "",
+    "dependencies": {},
     "devDependencies": {
+        "babel-core": "^6.24.1",
+        "babel-loader": "^7.0.0",
+        "babel-preset-env": "^1.4.0",
+        "clean-webpack-plugin": "^0.1.16",
         "gulp": "^3.9.1",
         "gulp-util": "^3.0.8",
-        "webpack": "^2.4.1"
+        "html-webpack-harddisk-plugin": "^0.1.0",
+        "html-webpack-plugin": "^2.28.0",
+        "webpack": "^2.5.1",
+        "webpack-dev-server": "^2.4.5"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "build": "set NODE_ENV=production&&webpack -p",
+        "dev": "webpack-dev-server",
+        "gbuild": "set NODE_ENV=production&&gulp",
+        "gdev": "set NODE_ENV=development&&gulp"
     },
     "keywords": [],
     "author": "",

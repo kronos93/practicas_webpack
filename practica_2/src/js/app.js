@@ -9,6 +9,10 @@ class Persona {
 }
 let miDiv = document.createElement('div');
 console.log("Loggin into webpack 2.0");
+console.log("Loggin into webpack 2.0");
+console.log("Loggin into webpack 2.0");
+console.log("Loggin into webpack 2.0");
+console.log("Loggin into webpack 2.0");
 console.log("Apps");
 let persona = new Persona();
 persona.saludo();
