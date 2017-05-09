@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 //Funcion nativa de NODEJS
 const { resolve } = require('path');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 //Variable de entorno
 const PRODUCTION = (process.env.NODE_ENV === 'production') ? true : false;
 //Plugins
@@ -13,7 +14,7 @@ const config = {
     entry: [
         // bundle the client for webpack-dev-server
         // and connect to the provided endpoint
-        'webpack-dev-server/client?http://localhost:9000',
+        'webpack-dev-server/client',
         // bundle the client for hot reloading
         // only- means to only hot reload for successful updates
         'webpack/hot/only-dev-server',
@@ -35,7 +36,7 @@ const config = {
     plugins: [
         new HtmlWebpackPlugin({
             filename: './templates/template.html',
-            /*template: './src/templates/template.html',*/
+            template: './src/templates/template.html',
             /* alwaysWriteToDisk: true,*/
         }),
         /*new HtmlWebpackHarddiskPlugin(),*/
@@ -43,6 +44,24 @@ const config = {
         new webpack.DefinePlugin({
             PRODUCTION: JSON.stringify(PRODUCTION)
         }),
+        new BrowserSyncPlugin(
+            // BrowserSync options 
+            {
+                // browse to http://localhost:3000/ during development 
+                host: 'localhost',
+                port: 3000,
+                // proxy the Webpack Dev Server endpoint 
+                // (which should be serving on http://localhost:3100/) 
+                // through BrowserSync 
+                proxy: 'http://localhost:9000/'
+            },
+            // plugin options 
+            {
+                // prevent BrowserSync from reloading the page 
+                // and let Webpack Dev Server take care of this 
+                reload: false
+            }
+        ),
         //Plugins para el HMR
         // enable HMR globally
         new webpack.HotModuleReplacementPlugin(),
