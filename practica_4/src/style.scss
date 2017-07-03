@@ -1,0 +1,11 @@
+$icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
+@import '~bootstrap-sass/assets/stylesheets/_bootstrap.scss';
+$fa-font-path: "~font-awesome/fonts"; //Variable de SASS para el import
+@import "~font-awesome/scss/font-awesome";
+$ionicons-font-path: '~ionicons/dist/fonts/';
+@import "~ionicons/dist/scss/ionicons.scss";
+@import "~admin-lte/dist/css/AdminLTE.css";
+@import "~admin-lte/dist/css/skins/skin-blue.min.css";
+@import '~datatables.net-dt/css/jquery.dataTables.css';
+@import '~datatables.net-responsive-dt/css/responsive.dataTables.css';
+@import '~datatables.net-buttons-dt/css/buttons.dataTables.css';
