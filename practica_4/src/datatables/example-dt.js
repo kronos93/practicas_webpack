@@ -1,0 +1,1 @@
+$('#example-dt').DataTable();

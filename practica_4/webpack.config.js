@@ -10,6 +10,7 @@ let config = function(env) {
     //Funcion nativa de NODEJS
     const { resolve } = require('path');
     const webpack = require('webpack');
+    const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
     const CleanWebpackPlugin = require('clean-webpack-plugin');
     const PRODUCTION = (env.production === 'true') ? true : false;
 
@@ -34,13 +35,14 @@ let config = function(env) {
         },
         entry: {
             vendor: [
-                'bootstrap/dist/js/bootstrap.js'
+                'bootstrap/dist/js/bootstrap.js', 'admin-lte/dist/js/app.js'
             ],
             app: './app.js',
 
         },
         output: {
-            filename: './[name].js', //Archivo o carpeta + nombre del archivo de salida
+            filename: './[name].bundle.js', //Archivo o carpeta + nombre del archivo de salida
+            chunkFilename: '[name].bundle.js',
             path: resolve(__dirname, 'dist'),
         },
         module: {
@@ -57,15 +59,25 @@ let config = function(env) {
                     test: /\.css$/,
                     use: useConfigCss,
                 },
-                //images
+                //images y fuentes con url loader
                 {
-                    test: /\.(png|jpe?g|gif|svg)$/,
+                    test: /\.(png|gif|svg|png)$/,
                     loader: 'url-loader',
                     options: {
                         limit: 10000
                     }
                 },
-                //fonts
+                //imagenes con file loader
+                {
+                    test: /\.(png|jpe?g|gif)$/,
+                    loader: 'file-loader',
+                    options: {
+                        name: "[name].[ext]",
+                        outputPath: "img/",
+                        publicPath: "http://localhost/practicas_webpack/practica_4/dist/",
+                    }
+                },
+                //fonts con file loader
                 {
                     test: /\.(eot|ttf|woff|woff2|svg)$/,
                     loader: 'file-loader',
@@ -75,7 +87,7 @@ let config = function(env) {
                         //},
                         name: "[name].[ext]",
                         outputPath: "fonts/",
-
+                        publicPath: "http://localhost/practicas_webpack/practica_4/dist/", //corregir*
                     }
                 },
                 //Configuración especial para datatables y archivos.js
@@ -95,18 +107,17 @@ let config = function(env) {
                 template: './template.html',
                 title: "Mi aplicación",
                 filename: 'admin.html',
-                hash: true
+
             }),
             new HtmlWebpackPlugin({
                 template: './template.1.html',
                 title: "Mi aplicación",
                 filename: 'index.html',
-                hash: true
+
             }),
             //Exporta módulos compartidos por entrada
-            /*new webpack.optimize.CommonsChunkPlugin({
-                name: 'vendor',
-            }),*/
+            new webpack.optimize.CommonsChunkPlugin('vendor'),
+            /*new BundleAnalyzerPlugin(),*/
             new CleanWebpackPlugin('./dist/*'),
         ]
 
