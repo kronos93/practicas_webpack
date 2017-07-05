@@ -1,17 +1,16 @@
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-// Create multiple instances
-const extractCSS = new ExtractTextPlugin('[name]-one.css');
-const extractSASS = new ExtractTextPlugin('[name]-two.css');
-
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-//Funcion nativa de NODEJS
-const { resolve } = require('path');
-const webpack = require('webpack');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-
-
 let config = function(env) {
+
+    const ExtractTextPlugin = require("extract-text-webpack-plugin");
+    // Create multiple instances
+    const extractCSS = new ExtractTextPlugin({ filename: 'css/[name]-one.css' });
+    const extractSASS = new ExtractTextPlugin({ filename: 'css/[name]-two.css' });
+
+    const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+    //Funcion nativa de NODEJS
+    const { resolve } = require('path');
+    const webpack = require('webpack');
+    const CleanWebpackPlugin = require('clean-webpack-plugin');
     const PRODUCTION = (env.production === 'true') ? true : false;
 
     const useProdConfigCss = extractCSS.extract({
@@ -58,14 +57,27 @@ let config = function(env) {
                     test: /\.css$/,
                     use: useConfigCss,
                 },
+                //images
                 {
-                    test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/,
+                    test: /\.(png|jpe?g|gif|svg)$/,
                     loader: 'url-loader',
                     options: {
                         limit: 10000
                     }
                 },
+                //fonts
+                {
+                    test: /\.(eot|ttf|woff|woff2|svg)$/,
+                    loader: 'file-loader',
+                    options: {
+                        //query: {
+                        //useRelativePath: true, //process.env.NODE_ENV === "production"
+                        //},
+                        name: "[name].[ext]",
+                        outputPath: "fonts/",
 
+                    }
+                },
                 //Configuración especial para datatables y archivos.js
                 {
                     test: /datatables\.net.*\.js$/,

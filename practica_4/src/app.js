@@ -1,12 +1,11 @@
 import css from './style.css';
 import scss from './style.scss';
 
-/*import './dt-config';
-
-import '';
-import './require_2';*/
+//import './dt-config';
+//import '';
+//import './require_2';
 if ($('#example-dt').length > 0) {
-    /*require.ensure(['', './require_1'], function(require) {});*/
+    //require.ensure(['', './require_1'], function(require) {});
     import ('./dt-config').then(() => {
         $('#example-dt').DataTable();
     });
@@ -17,7 +16,7 @@ if ($('#example2-dt').length > 0) {
     });
 }
 if ($('#example3-dt').length > 0) {
-    /*require.ensure(['', './require_1'], function(require) {});*/
+    //require.ensure(['', './require_1'], function(require) {});
     import ('./dt-config').then(() => {
         $('#example3-dt').DataTable();
     });
