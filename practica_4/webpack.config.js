@@ -37,7 +37,12 @@ let config = function(env) {
             vendor: [
                 'bootstrap/dist/js/bootstrap.js', 'admin-lte/dist/js/app.js'
             ],
-            app: './app.js',
+            app: [
+
+                './app.js',
+                './style.css',
+                './style.scss',
+            ],
 
         },
         output: {
@@ -74,7 +79,7 @@ let config = function(env) {
                     options: {
                         name: "[name].[ext]",
                         outputPath: "img/",
-                        publicPath: "http://localhost/practicas_webpack/practica_4/dist/",
+                        publicPath: "http://localhost/debug/js/practicas_webpack/practica_4/dist/",
                     }
                 },
                 //fonts con file loader
@@ -87,7 +92,7 @@ let config = function(env) {
                         //},
                         name: "[name].[ext]",
                         outputPath: "fonts/",
-                        publicPath: "http://localhost/practicas_webpack/practica_4/dist/", //corregir*
+                        publicPath: "http://localhost/debug/js/practicas_webpack/practica_4/dist/", //corregir*
                     }
                 },
                 //Configuración especial para datatables y archivos.js
