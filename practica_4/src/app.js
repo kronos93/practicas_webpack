@@ -19,13 +19,18 @@ import scss from './style.scss';*/
 
 
 if ($('#example-dt').length > 0) {
-    /*Promise.all([loadModules("dt-config.js"), loadModules("datatables/example-dt.js")]).then(function(arr) {
-        console.log("Se han cargado las depedencias", arr);
-    });*/
-
+    import ( /* webpackChunkName: "dt-example" */ './datatables/example-dt.js').then(
+        module => {}
+    ).catch(
+        error => { console.log("Valio barriga señor"); }
+    );
 }
 if ($('#example2-dt').length > 0) {
-
+    import ( /* webpackChunkName: "dt-example2" */ './datatables/example2-dt.js').then(
+        module => {}
+    ).catch(
+        error => { console.log("Valio barriga señor"); }
+    );
 }
 if ($('#example3-dt').length > 0) {
 

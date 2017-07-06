@@ -21,7 +21,8 @@
         "datatables.net-responsive-dt": "^2.1.1",
         "font-awesome": "^4.7.0",
         "ionicons": "^3.0.0",
-        "jquery": "^3.2.1"
+        "jquery": "^3.2.1",
+        "resolve-url-loader": "^2.1.0"
     },
     "devDependencies": {
         "babel-core": "^6.25.0",
@@ -31,6 +32,7 @@
         "clean-webpack-plugin": "^0.1.16",
         "css-loader": "^0.28.4",
         "extract-text-webpack-plugin": "^2.1.2",
+        "favicons-webpack-plugin": "0.0.7",
         "file-loader": "^0.11.2",
         "html-webpack-plugin": "^2.29.0",
         "imports-loader": "^0.7.1",

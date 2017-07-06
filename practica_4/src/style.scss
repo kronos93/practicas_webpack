@@ -4,8 +4,14 @@ $fa-font-path: "~font-awesome/fonts"; //Variable de SASS para el import
 @import "~font-awesome/scss/font-awesome";
 $ionicons-font-path: '~ionicons/dist/fonts/';
 @import "~ionicons/dist/scss/ionicons.scss";
-@import "~admin-lte/dist/css/AdminLTE.css";
+@import "~admin-lte/dist/css/AdminLTE.min.css";
 @import "~admin-lte/dist/css/skins/skin-blue.min.css";
+@import "~admin-lte/plugins/iCheck/flat/blue.css";
+@import "~admin-lte/plugins/morris/morris.css";
+@import "~admin-lte/plugins/jvectormap/jquery-jvectormap-1.2.2.css";
+@import "~admin-lte/plugins/datepicker/datepicker3.css";
+@import "~admin-lte/plugins/daterangepicker/daterangepicker.css";
+@import "~admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css";
 @import '~datatables.net-dt/css/jquery.dataTables.css';
 @import '~datatables.net-responsive-dt/css/responsive.dataTables.css';
 @import '~datatables.net-buttons-dt/css/buttons.dataTables.css';

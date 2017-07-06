@@ -6,27 +6,32 @@ let config = function(env) {
     const extractSASS = new ExtractTextPlugin({ filename: 'css/[name]-two.css' });
 
     const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+    const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
     //Funcion nativa de NODEJS
     const { resolve } = require('path');
     const webpack = require('webpack');
     const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
     const CleanWebpackPlugin = require('clean-webpack-plugin');
-    const PRODUCTION = (env.production === 'true') ? true : false;
+    const isProduction = (env.production === 'true') ? true : false;
 
-    const useProdConfigCss = extractCSS.extract({
+    /*
+     * Configuración para cargar estilos css
+     */
+    const ProdConfigCss = extractCSS.extract({
         fallback: "style-loader",
-        use: "css-loader"
+        use: ["css-loader"]
     });
-    const useDevConfigCss = ['style-loader', 'css-loader'];
-    const useConfigCss = (PRODUCTION) ? useProdConfigCss : useDevConfigCss;
-
-    const useProdConfigSass = extractSASS.extract({
+    const DevConfigCss = ['style-loader', 'css-loader'];
+    const useConfigCss = (isProduction) ? ProdConfigCss : DevConfigCss;
+    /*
+     * Configuración para cargar estilos sass
+     */
+    const ProdConfigSass = extractSASS.extract({
         fallback: "style-loader",
-        use: ["css-loader", 'sass-loader']
+        use: ["css-loader", 'sass-loader', ]
     });
-    const useDevConfigSass = ['style-loader', 'css-loader', 'sass-loader'];
-    const useConfigSass = (PRODUCTION) ? useProdConfigSass : useDevConfigSass;
+    const DevConfigSass = ['style-loader', 'css-loader', 'sass-loader'];
+    const useConfigSass = (isProduction) ? ProdConfigSass : DevConfigSass;
 
     return {
         context: resolve(__dirname, 'src'), //Contexto de entrada de archivos
@@ -38,7 +43,6 @@ let config = function(env) {
                 'bootstrap/dist/js/bootstrap.js', 'admin-lte/dist/js/app.js'
             ],
             app: [
-
                 './app.js',
                 './style.css',
                 './style.scss',
@@ -64,22 +68,12 @@ let config = function(env) {
                     test: /\.css$/,
                     use: useConfigCss,
                 },
-                //images y fuentes con url loader
-                {
-                    test: /\.(png|gif|svg|png)$/,
-                    loader: 'url-loader',
-                    options: {
-                        limit: 10000
-                    }
-                },
                 //imagenes con file loader
                 {
                     test: /\.(png|jpe?g|gif)$/,
                     loader: 'file-loader',
                     options: {
-                        name: "[name].[ext]",
-                        outputPath: "img/",
-                        publicPath: "http://localhost/debug/js/practicas_webpack/practica_4/dist/",
+                        name: "img/[name].[ext]",
                     }
                 },
                 //fonts con file loader
@@ -90,9 +84,8 @@ let config = function(env) {
                         //query: {
                         //useRelativePath: true, //process.env.NODE_ENV === "production"
                         //},
-                        name: "[name].[ext]",
-                        outputPath: "fonts/",
-                        publicPath: "http://localhost/debug/js/practicas_webpack/practica_4/dist/", //corregir*
+                        name: "fonts/[name].[ext]",
+
                     }
                 },
                 //Configuración especial para datatables y archivos.js
@@ -105,9 +98,9 @@ let config = function(env) {
             ]
         },
         plugins: [
-            //new ExtractTextPlugin("app.css"), Una sola instancia
             extractCSS,
             extractSASS,
+            new FaviconsWebpackPlugin('./icon.png'),
             new HtmlWebpackPlugin({
                 template: './template.html',
                 title: "Mi aplicación",
@@ -121,8 +114,10 @@ let config = function(env) {
 
             }),
             //Exporta módulos compartidos por entrada
-            new webpack.optimize.CommonsChunkPlugin('vendor'),
-            /*new BundleAnalyzerPlugin(),*/
+            new webpack.optimize.CommonsChunkPlugin({
+                name: "vendor",
+            }),
+            new BundleAnalyzerPlugin(),
             new CleanWebpackPlugin('./dist/*'),
         ]
 
