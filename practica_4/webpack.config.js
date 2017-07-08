@@ -1,5 +1,5 @@
 let config = function(env) {
-
+    let publicPath = "http://localhost/practicas_webpack/practica_4/dist/";
     const ExtractTextPlugin = require("extract-text-webpack-plugin");
     // Create multiple instances
     const extractCSS = new ExtractTextPlugin({ filename: 'css/[name]-one.css' });
@@ -74,6 +74,7 @@ let config = function(env) {
                     loader: 'file-loader',
                     options: {
                         name: "img/[name].[ext]",
+                        publicPath: publicPath,
                     }
                 },
                 //fonts con file loader
@@ -81,11 +82,8 @@ let config = function(env) {
                     test: /\.(eot|ttf|woff|woff2|svg)$/,
                     loader: 'file-loader',
                     options: {
-                        //query: {
-                        //useRelativePath: true, //process.env.NODE_ENV === "production"
-                        //},
                         name: "fonts/[name].[ext]",
-
+                        publicPath: publicPath,
                     }
                 },
                 //Configuración especial para datatables y archivos.js
@@ -111,20 +109,17 @@ let config = function(env) {
                 template: './template.1.html',
                 title: "Mi aplicación",
                 filename: 'index.html',
-
             }),
             //Exporta módulos compartidos por entrada
             new webpack.optimize.CommonsChunkPlugin({
                 name: "vendor",
             }),
-            new BundleAnalyzerPlugin(),
+            //new BundleAnalyzerPlugin(),
             new CleanWebpackPlugin('./dist/*'),
         ]
-
     };
 
 };
 //Exportar módulos nativos, sintaxis de NodeJs
 module.exports = config;
-
-//Investigar resolve url-loder
+//Investigar resolve url-loader

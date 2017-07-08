@@ -12,6 +12,22 @@ $ionicons-font-path: '~ionicons/dist/fonts/';
 @import "~admin-lte/plugins/datepicker/datepicker3.css";
 @import "~admin-lte/plugins/daterangepicker/daterangepicker.css";
 @import "~admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css";
+
+/*
+** Reparación de problemas con el css de admin lte
+*/
+
+@media (min-width: 768px) {
+    .sidebar-mini.sidebar-collapse .sidebar-menu>li:hover>.treeview-menu {
+        top: initial;
+    }
+}
+
+a:hover,
+a:focus {
+    text-decoration: none !important;
+}
+
 @import '~datatables.net-dt/css/jquery.dataTables.css';
 @import '~datatables.net-responsive-dt/css/responsive.dataTables.css';
 @import '~datatables.net-buttons-dt/css/buttons.dataTables.css';
