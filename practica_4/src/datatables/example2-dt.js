@@ -1,7 +1,10 @@
-import ( /* webpackChunkName: "dt-config" */ '../dt-config').then(
+import ( /* webpackChunkName: "DtConfig" */ '../DtConfig').then(
     module => {
-        $('#example2-dt').DataTable();
+        let dtconfig = new module.DtConfig();
+        $('#example2-dt').DataTable({
+
+        });
     }
 ).catch(
-    error => { console.log("Valio barriga señor"); }
+    error => { console.log(error); }
 );

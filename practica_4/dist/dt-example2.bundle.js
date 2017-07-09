@@ -1,1 +1,18 @@
-webpackJsonp([0],{8:function(n,e,t){"use strict";t.e(3).then(t.bind(null,11)).then(function(n){$("#example2-dt").DataTable()}).catch(function(n){console.log("Valio barriga señor")})}});
+webpackJsonp([0],{
+
+/***/ 48:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 76)).then(function (module) {
+    var dtconfig = new module.DtConfig();
+    $('#example2-dt').DataTable({});
+}).catch(function (error) {
+    console.log(error);
+});
+
+/***/ })
+
+});
