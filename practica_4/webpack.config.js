@@ -32,7 +32,11 @@ let config = function(env) {
     });
     const DevConfigSass = ['style-loader', 'css-loader', 'sass-loader'];
     const useConfigSass = (isProduction) ? ProdConfigSass : DevConfigSass;
-
+    /*
+     **Archivos de configuración de gulp
+     */
+    const gulp = require('gulp');
+    const htmlsplit = require('gulp-htmlsplit');
     return {
         context: resolve(__dirname, 'src'), //Contexto de entrada de archivos
         externals: {
@@ -109,6 +113,9 @@ let config = function(env) {
                 template: './template.1.html',
                 title: "Mi aplicación",
                 filename: 'index.html',
+                minify: {
+                    collapseWhitespace: isProduction
+                },
             }),
             //Exporta módulos compartidos por entrada
             new webpack.optimize.CommonsChunkPlugin({
@@ -116,7 +123,16 @@ let config = function(env) {
             }),
             //new BundleAnalyzerPlugin(),
             new CleanWebpackPlugin('./dist/*'),
-        ]
+            function() {
+                this.plugin('done', stats => {
+                    gulp.src('./dist/*.html')
+                        .pipe(htmlsplit())
+                        .pipe(gulp.dest('dist'));
+                    console.log('Termino la ejecución de un plugin');
+                });
+            }
+        ],
+        stats: 'errors-only'
     };
 
 };

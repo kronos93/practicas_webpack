@@ -14,7 +14,7 @@ const webpack = require('webpack');
 
 
 gulp.task('default', function(done) {
-    return watch('./dist/*.php', { ignoreInitial: false })
+    return watch('./dist/*.html', { ignoreInitial: false })
         //gulp.src('./dist/index.html')
         .pipe(htmlsplit())
         .pipe(gulp.dest('dist'));
