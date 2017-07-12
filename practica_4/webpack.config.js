@@ -1,10 +1,6 @@
 let config = function(env) {
     let publicPath = "http://localhost/practicas_webpack/practica_4/dist/";
     const ExtractTextPlugin = require("extract-text-webpack-plugin");
-    // Create multiple instances
-    const extractCSS = new ExtractTextPlugin({ filename: 'css/[name]-one.css' });
-    const extractSASS = new ExtractTextPlugin({ filename: 'css/[name]-two.css' });
-
     const HtmlWebpackPlugin = require('html-webpack-plugin');
     const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
     //Funcion nativa de NODEJS
@@ -13,19 +9,18 @@ let config = function(env) {
     const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
     const CleanWebpackPlugin = require('clean-webpack-plugin');
     const isProduction = (env.production === 'true') ? true : false;
-
     /*
      * Configuración para cargar estilos css
      */
+    // Crear multiple instancias
+    const extractCSS = new ExtractTextPlugin({ filename: 'css/[name]-one.css' });
+    const extractSASS = new ExtractTextPlugin({ filename: 'css/[name]-two.css' });
     const ProdConfigCss = extractCSS.extract({
         fallback: "style-loader",
         use: ["css-loader"]
     });
     const DevConfigCss = ['style-loader', 'css-loader'];
     const useConfigCss = (isProduction) ? ProdConfigCss : DevConfigCss;
-    /*
-     * Configuración para cargar estilos sass
-     */
     const ProdConfigSass = extractSASS.extract({
         fallback: "style-loader",
         use: ["css-loader", 'sass-loader', ]
@@ -35,8 +30,8 @@ let config = function(env) {
     /*
      **Archivos de configuración de gulp
      */
-    const gulp = require('gulp');
-    const htmlsplit = require('gulp-htmlsplit');
+    let GulpWebpackSplitHtmlPlugin = require('./build/plugins/GulpWebpackSplitHtmlPlugin');
+
     return {
         context: resolve(__dirname, 'src'), //Contexto de entrada de archivos
         externals: {
@@ -54,9 +49,10 @@ let config = function(env) {
 
         },
         output: {
-            filename: './[name].bundle.js', //Archivo o carpeta + nombre del archivo de salida
+            filename: '[name].bundle.js', //Archivo o carpeta + nombre del archivo de salida
             chunkFilename: '[name].bundle.js',
             path: resolve(__dirname, 'dist'),
+            publicPath: publicPath,
         },
         module: {
             rules: [{
@@ -107,7 +103,6 @@ let config = function(env) {
                 template: './template.html',
                 title: "Mi aplicación",
                 filename: 'admin.html',
-
             }),
             new HtmlWebpackPlugin({
                 template: './template.1.html',
@@ -117,22 +112,20 @@ let config = function(env) {
                     collapseWhitespace: isProduction
                 },
             }),
+            new HtmlWebpackPlugin({
+                template: './template.html',
+                title: "<?= $title ?>",
+                filename: './template/template.html',
+            }),
             //Exporta módulos compartidos por entrada
             new webpack.optimize.CommonsChunkPlugin({
                 name: "vendor",
             }),
             //new BundleAnalyzerPlugin(),
             new CleanWebpackPlugin('./dist/*'),
-            function() {
-                this.plugin('done', stats => {
-                    gulp.src('./dist/*.html')
-                        .pipe(htmlsplit())
-                        .pipe(gulp.dest('dist'));
-                    console.log('Termino la ejecución de un plugin');
-                });
-            }
+            new GulpWebpackSplitHtmlPlugin(),
         ],
-        stats: 'errors-only'
+        stats: (isProduction) ? 'errors-only' : 'detailed',
     };
 
 };
