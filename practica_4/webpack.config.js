@@ -1,5 +1,8 @@
 let config = function(env) {
-    let publicPath = "http://localhost/practicas_webpack/practica_4/dist/";
+    let port = 3030;
+    let absolutePath = "http://localhost/practicas_webpack/practica_4/dist/";
+    let relativePath = "http://localhost:" + port + "/";
+
     const ExtractTextPlugin = require("extract-text-webpack-plugin");
     const HtmlWebpackPlugin = require('html-webpack-plugin');
     const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
@@ -9,6 +12,8 @@ let config = function(env) {
     const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
     const CleanWebpackPlugin = require('clean-webpack-plugin');
     const isProduction = (env.production === 'true') ? true : false;
+    console.log('is prod: ' + isProduction);
+    let publicPath = (isProduction) ? "http://localhost/practicas_webpack/practica_4/dist/" : relativePath;
     /*
      * Configuración para cargar estilos css
      */
@@ -42,6 +47,7 @@ let config = function(env) {
                 'bootstrap/dist/js/bootstrap.js', 'admin-lte/dist/js/app.js'
             ],
             app: [
+
                 './app.js',
                 './style.css',
                 './style.scss',
@@ -49,8 +55,8 @@ let config = function(env) {
 
         },
         output: {
-            filename: '[name].bundle.js', //Archivo o carpeta + nombre del archivo de salida
-            chunkFilename: '[name].bundle.js',
+            filename: 'js/[name].bundle.js', //Archivo o carpeta + nombre del archivo de salida
+            chunkFilename: 'js/[name].bundle.js',
             path: resolve(__dirname, 'dist'),
             publicPath: publicPath,
         },
@@ -96,6 +102,7 @@ let config = function(env) {
             ]
         },
         plugins: [
+
             extractCSS,
             extractSASS,
             new FaviconsWebpackPlugin('./icon.png'),
@@ -118,13 +125,31 @@ let config = function(env) {
                 filename: './template/template.html',
             }),
             //Exporta módulos compartidos por entrada
-            new webpack.optimize.CommonsChunkPlugin({
-                name: "vendor",
-            }),
+            /*  new webpack.optimize.CommonsChunkPlugin({
+                 name: "vendor",
+             }), */
+            /* new webpack.optimize.CommonsChunkPlugin({
+                name: 'common' // Specify the common bundle's name.
+            }), */
             //new BundleAnalyzerPlugin(),
+            new webpack.HotModuleReplacementPlugin(), // Enable HMR
+            new webpack.NamedModulesPlugin(),
             new CleanWebpackPlugin('./dist/*'),
             new GulpWebpackSplitHtmlPlugin(),
         ],
+        devServer: {
+            contentBase: resolve(__dirname, 'dist'),
+            publicPath: publicPath,
+            port: port,
+            hot: true,
+            hotOnly: true,
+            stats: "errors-only",
+            compress: true,
+            public: "myapp.test:" + port,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            }
+        },
         stats: (isProduction) ? 'errors-only' : 'detailed',
     };
 

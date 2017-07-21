@@ -44,4 +44,4 @@ class DtConfig {
         });
     }
 }
-export { DtConfig };
+let dtConfig = new DtConfig();
