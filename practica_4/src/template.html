@@ -1,15 +1,23 @@
 <!-- split header.html -->
-<!DOCTYPE html>
-<html lang="es-MX">
+<!doctype html>
+<html amp lang="es-MX">
 
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
     <title>
         <%= htmlWebpackPlugin.options.title %>
     </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
     <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    <!-- Disable tap highlight on IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <!-- Web Application Manifest / Asignar dinamicamente url-->
+    <link rel="manifest" href="manifest.json">
+    <!-- Color the status bar on mobile devices / Asignar dinamicamente color -->
+    <meta name="theme-color" content="#357CA5">
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">

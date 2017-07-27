@@ -1,8 +1,8 @@
 let config = function(env) {
     let port = 3030;
-    let absolutePath = "http://localhost/practicas_webpack/practica_4/dist/";
+    let absolutePath = "http://192.168.1.10/debug/js/practicas_webpack/practica_4/dist/";
     let relativePath = "http://localhost:" + port + "/";
-
+    const OfflinePlugin = require('offline-plugin');
     const ExtractTextPlugin = require("extract-text-webpack-plugin");
     const HtmlWebpackPlugin = require('html-webpack-plugin');
     const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
@@ -13,7 +13,7 @@ let config = function(env) {
     const CleanWebpackPlugin = require('clean-webpack-plugin');
     const isProduction = (env.production === 'true') ? true : false;
     console.log('is prod: ' + isProduction);
-    let publicPath = (isProduction) ? "http://localhost/practicas_webpack/practica_4/dist/" : relativePath;
+    let publicPath = (isProduction) ? absolutePath : relativePath;
     /*
      * Configuración para cargar estilos css
      */
@@ -35,28 +35,28 @@ let config = function(env) {
     /*
      **Archivos de configuración de gulp
      */
-    let GulpWebpackSplitHtmlPlugin = require('./build/plugins/GulpWebpackSplitHtmlPlugin');
-
+    const GulpWebpackSplitHtmlPlugin = require('./build/plugins/GulpWebpackSplitHtmlPlugin');
+    const AppCachePlugin = require('appcache-webpack-plugin');
     return {
         context: resolve(__dirname, 'src'), //Contexto de entrada de archivos
         externals: {
             jquery: 'jQuery'
         },
         entry: {
-            vendor: [
-                'bootstrap/dist/js/bootstrap.js', 'admin-lte/dist/js/app.js'
-            ],
+
             app: [
 
                 './app.js',
                 './style.css',
                 './style.scss',
             ],
-
+            vendor: [
+                'bootstrap/dist/js/bootstrap.js', 'admin-lte/dist/js/app.js'
+            ],
         },
         output: {
-            filename: 'js/[name].bundle.js', //Archivo o carpeta + nombre del archivo de salida
-            chunkFilename: 'js/[name].bundle.js',
+            filename: 'js/[name].bundle.[hash].js', //Archivo o carpeta + nombre del archivo de salida
+            chunkFilename: 'js/[name].bundle.[chunkhash].js',
             path: resolve(__dirname, 'dist'),
             publicPath: publicPath,
         },
@@ -70,10 +70,10 @@ let config = function(env) {
                     test: /\.scss$/,
                     use: useConfigSass,
                 },
-                {
+                /* {
                     test: /\.css$/,
                     use: useConfigCss,
-                },
+                }, */
                 //imagenes con file loader
                 {
                     test: /\.(png|jpe?g|gif)$/,
@@ -105,7 +105,38 @@ let config = function(env) {
 
             extractCSS,
             extractSASS,
-            new FaviconsWebpackPlugin('./icon.png'),
+            new FaviconsWebpackPlugin({
+                // Your source logo
+                logo: './icon.png',
+                // The prefix for all image files (might be a folder or a name)
+                prefix: 'icons/', //[hash]
+                // Emit all stats of the generated icons
+                emitStats: false,
+                // The name of the json containing all favicon information
+                statsFilename: 'iconstats.json', //[hash]
+                // Generate a cache file with control hashes and
+                // don't rebuild the favicons until those hashes change
+                persistentCache: true,
+                // Inject the html into the html-webpack-plugin
+                inject: true,
+                // favicon background color (see https://github.com/haydenbleasel/favicons#usage)
+                background: '#fff',
+                // favicon app title (see https://github.com/haydenbleasel/favicons#usage)
+                title: 'Aplicación de control de agremiados',
+                // which icons should be generated (see https://github.com/haydenbleasel/favicons#usage)
+                icons: {
+                    android: true,
+                    appleIcon: true,
+                    appleStartup: true,
+                    coast: false,
+                    favicons: true,
+                    firefox: true,
+                    opengraph: false,
+                    twitter: false,
+                    yandex: false,
+                    windows: false
+                }
+            }),
             new HtmlWebpackPlugin({
                 template: './template.html',
                 title: "Mi aplicación",
@@ -124,18 +155,35 @@ let config = function(env) {
                 title: "<?= $title ?>",
                 filename: './template/template.html',
             }),
-            //Exporta módulos compartidos por entrada
-            /*  new webpack.optimize.CommonsChunkPlugin({
-                 name: "vendor",
-             }), */
-            /* new webpack.optimize.CommonsChunkPlugin({
-                name: 'common' // Specify the common bundle's name.
-            }), */
+
+            new webpack.HashedModuleIdsPlugin(),
+
             //new BundleAnalyzerPlugin(),
             new webpack.HotModuleReplacementPlugin(), // Enable HMR
             new webpack.NamedModulesPlugin(),
             new CleanWebpackPlugin('./dist/*'),
             new GulpWebpackSplitHtmlPlugin(),
+            function() {
+                this.plugin('done', stats => {
+                    require('fs').writeFileSync(
+                        resolve(__dirname, 'dist/plugin.webpack.manifest.json'),
+                        JSON.stringify(stats.toJson().assetsByChunkName)
+                    );
+                });
+            },
+            new AppCachePlugin(),
+            // it's always better if OfflinePlugin is the last plugin added
+            /* new OfflinePlugin({
+                safeToUseOptionalCaches: true,
+
+
+                ServiceWorker: {
+                    events: true
+                },
+                AppCache: {
+                    events: true
+                }
+            }), */
         ],
         devServer: {
             contentBase: resolve(__dirname, 'dist'),

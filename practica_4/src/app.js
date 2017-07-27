@@ -1,4 +1,6 @@
-﻿if ($('#example-dt').length > 0) {
+﻿import * as OfflinePluginRuntime from 'offline-plugin/runtime';
+
+if ($('#example-dt').length > 0) {
 
     (async() => {
         await
@@ -25,9 +27,9 @@ if ($('#example3-dt').length > 0) {
 if ($('#example4-dt').length > 0) {
 
 }
-console.log('Hola mundo');
-console.log('Hola mundo');
+
 if (module.hot) {
 
     module.hot.accept();
 }
+OfflinePluginRuntime.install();
