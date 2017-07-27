@@ -1,8 +1,8 @@
 let config = function(env) {
     let port = 3030;
-    let absolutePath = "http://192.168.1.10/debug/js/practicas_webpack/practica_4/dist/";
+    let absolutePath = "http://localhost/practicas_webpack/practica_4/dist/";
     let relativePath = "http://localhost:" + port + "/";
-    const OfflinePlugin = require('offline-plugin');
+
     const ExtractTextPlugin = require("extract-text-webpack-plugin");
     const HtmlWebpackPlugin = require('html-webpack-plugin');
     const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
@@ -37,6 +37,7 @@ let config = function(env) {
      */
     const GulpWebpackSplitHtmlPlugin = require('./build/plugins/GulpWebpackSplitHtmlPlugin');
     const AppCachePlugin = require('appcache-webpack-plugin');
+    const OfflinePlugin = require('offline-plugin');
     return {
         context: resolve(__dirname, 'src'), //Contexto de entrada de archivos
         externals: {
@@ -167,23 +168,13 @@ let config = function(env) {
                 this.plugin('done', stats => {
                     require('fs').writeFileSync(
                         resolve(__dirname, 'dist/plugin.webpack.manifest.json'),
-                        JSON.stringify(stats.toJson().assetsByChunkName)
+                        JSON.stringify(stats.toJson())
                     );
                 });
             },
             new AppCachePlugin(),
             // it's always better if OfflinePlugin is the last plugin added
-            /* new OfflinePlugin({
-                safeToUseOptionalCaches: true,
-
-
-                ServiceWorker: {
-                    events: true
-                },
-                AppCache: {
-                    events: true
-                }
-            }), */
+            new OfflinePlugin(),
         ],
         devServer: {
             contentBase: resolve(__dirname, 'dist'),
