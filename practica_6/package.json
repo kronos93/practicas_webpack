@@ -1,20 +1,26 @@
 {
-  "name": "practica_6",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "babel-core": "^6.25.0",
-    "babel-loader": "^7.1.1",
-    "babel-preset-env": "^1.6.0",
-    "clean-webpack-plugin": "^0.1.16",
-    "webpack": "^3.5.4",
-    "webpack-dev-server": "^2.7.1"
-  }
+    "name": "practica_6",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "webpack --env.prod --env.min",
+        "dev": "webpack"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "babel-core": "^6.25.0",
+        "babel-loader": "^7.1.1",
+        "babel-preset-env": "^1.6.0",
+        "clean-webpack-plugin": "^0.1.16",
+        "favicons-webpack-plugin": "0.0.7",
+        "html-loader": "^0.5.1",
+        "html-webpack-plugin": "^2.30.1",
+        "pug": "^2.0.0-rc.3",
+        "pug-loader": "^2.3.0",
+        "webpack": "^3.5.4",
+        "webpack-dev-server": "^2.7.1"
+    }
 }
