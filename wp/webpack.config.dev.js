@@ -213,11 +213,10 @@ export default {
     contentBase: publicDir,
     publicPath: "/",
     port: 9000,
-    historyApiFallback: true,
-    // respond to 404s with index.html
+    historyApiFallback: true,  // respond to 404s with index.html
     compress: true,
-    hot: true,
-    // enable HMR on the server
+    hot: true,  // enable HMR on the server
+    noInfo: true, // only errors & warns on hot reload
     open: true,
     openPage: '',
     stats: "errors-only"

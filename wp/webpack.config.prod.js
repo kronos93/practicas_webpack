@@ -220,4 +220,5 @@ export default {
     }),
     new CleanWebpackPlugin(pathsToClean, cleanOptions),
   ],
+  stats: "errors-only",
 };
