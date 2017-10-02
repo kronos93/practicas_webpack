@@ -22,6 +22,8 @@ const cleanOptions = {
   // Absolute path to your webpack root folder (paths appended to this)
   // Default: root of your package
   root: publicDir,
+  // Write logs to console.
+  verbose: false,
   // Instead of removing whole path recursively,
   // remove all path's content with exclusion of provided immediate children.
   // Good for not removing shared files from build directories.
@@ -141,7 +143,7 @@ export default {
 
   },
   plugins: [
-    //new DashboardPlugin(),
+    new DashboardPlugin(),
     new FaviconsWebpackPluginCesco({
       // Your source logo
       logo: './icons/icon.png',
@@ -219,6 +221,8 @@ export default {
     noInfo: true, // only errors & warns on hot reload
     open: true,
     openPage: '',
-    stats: "errors-only"
-  }
+    stats: "errors-only",
+    inline: true,
+  },
+  stats: "errors-only"
 };
