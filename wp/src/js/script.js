@@ -11,3 +11,7 @@ p.saludo();
 function hola() {
   console.log("hola");
 }
+
+if (module.hot) {
+  module.hot.accept();
+}
