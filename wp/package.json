@@ -7,7 +7,8 @@
     "dev": "webpack -d --watch",
     "prod": "webpack -p --env.prod",
     "clean": "rimraf ./public/*.png ./public/*.json ./public/*.html ./public/*.xml ./public/*.ico ./public/.cache ./public/*.webapp ./public/*.js ",
-    "start": "webpack-dev-server --color"
+    "start": "webpack-dev-server --color",
+    "dash": "webpack-dashboard -c -- webpack-dev-server"
   },
   "browserslist": [
     "> 1%",
@@ -17,8 +18,10 @@
   "author": "Samuel R.",
   "license": "ISC",
   "devDependencies": {
+    "autoprefixer": "^7.1.4",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "clean-webpack-plugin": "^0.1.17",
     "css-loader": "^0.28.7",
@@ -31,6 +34,7 @@
     "image-webpack-loader": "^3.4.2",
     "node-sass": "^4.5.3",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
+    "postcss-loader": "^2.0.6",
     "purify-css": "^1.2.5",
     "purifycss-webpack": "^0.7.0",
     "resolve-url-loader": "^2.1.0",
@@ -43,7 +47,6 @@
     "webpack-dev-server": "^2.9.1"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
     "font-awesome": "^4.7.0",
     "normalize.css": "^7.0.0"
   }
