@@ -4,10 +4,10 @@
   "description": "Kit de inicio para proyectos con Webpack",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack -d --watch",
-    "prod": "webpack -p --env.prod --colors",
+    "dev": "webpack --config ./webpack.config.dev.babel.js -d --watch --color",
+    "prod": "webpack --config ./webpack.config.prod.babel.js -p --env.prod --colors",
     "clean": "rimraf ./public/*.png ./public/*.json ./public/*.html ./public/*.xml ./public/*.ico ./public/.cache ./public/*.webapp ./public/*.js ./public/assets/*",
-    "start": "webpack-dev-server --color",
+    "start": "webpack-dev-server --config ./webpack.config.dev.babel.js --color",
     "dash": "webpack-dashboard -c -- webpack-dev-server"
   },
   "browserslist": [

@@ -1,7 +1,7 @@
 import webpack from 'webpack';
 
-import DevConfig from './webpack.dev';
-import ProdConfig from './webpack.prod';
+import DevConfig from './webpack.config.dev.babel';
+import ProdConfig from './webpack.config.prod.babel';
 //Utilerias
 let c = console.log;
 export default (env, args) => { //https://webpack.js.org/configuration/configuration-types/#exporting-a-function
