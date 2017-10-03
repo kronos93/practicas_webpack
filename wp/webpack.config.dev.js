@@ -116,6 +116,11 @@ export default {
           }
         ]
       },
+      //Pug https://github.com/pugjs/pug-loader
+      {
+        test: /\.pug$/,
+        use: 'pug-loader'
+      },
       //Fonts
       {
         test: /(fonts?)+.*\.(ttf|eot|woff2?|svg)$/,
@@ -199,7 +204,7 @@ export default {
     new HtmlWebpackPlugin({
       title: 'Kit de inicio',
       filename: './index.html',
-      template: './index.html',
+      template: './index.pug',
       minify: false, // { collapseWhitespace: true, removeComments: true }
     }),
     new CleanWebpackPlugin(pathsToClean, cleanOptions),
