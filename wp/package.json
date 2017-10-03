@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack -d --watch",
     "prod": "webpack -p --env.prod --colors",
-    "clean": "rimraf ./public/*.png ./public/*.json ./public/*.html ./public/*.xml ./public/*.ico ./public/.cache ./public/*.webapp ./public/*.js ",
+    "clean": "rimraf ./public/*.png ./public/*.json ./public/*.html ./public/*.xml ./public/*.ico ./public/.cache ./public/*.webapp ./public/*.js ./public/assets/*",
     "start": "webpack-dev-server --color",
     "dash": "webpack-dashboard -c -- webpack-dev-server"
   },
