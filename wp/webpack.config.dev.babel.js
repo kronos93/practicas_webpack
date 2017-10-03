@@ -208,6 +208,13 @@ export default {
       template: './index.pug',
       minify: false, // { collapseWhitespace: true, removeComments: true }
     }),
+    new HtmlWebpackPlugin({
+      title: 'Kit de inicio',
+      msg: 'Difunde la palabra DevexTeam <3',
+      filename: './mensaje.html',
+      template: './index.html',
+      minify: false, // { collapseWhitespace: true, removeComments: true }
+    }),
     new CleanWebpackPlugin(pathsToClean, cleanOptions),
     new webpack.HotModuleReplacementPlugin(),
     // enable HMR globally
