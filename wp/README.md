@@ -87,3 +87,8 @@ Por leer
 //File loader - https://github.com/webpack-contrib/file-loader
 //Img loader - https://github.com/tcoopman/image-webpack-loader
 #http://browserl.ist/?q=%3E+5%25%2Cie+%3E+10
+
+chrome://extensions/
+https://chrome.google.com/webstore/detail/amp-validator/nmoffdblmcmgeicmolmhobpoocbbmknc?utm_source=chrome-app-launcher-info-dialog
+https://chrome.google.com/webstore/detail/video-speed-controller/nffaoalbilbmmfgbnbgppjihopabppdk
+https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk
