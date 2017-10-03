@@ -70,6 +70,11 @@ export default {
         use: [
           {
             loader: 'style-loader',
+            options: {
+              hmr: true,
+              sourceMap: true,
+              convertToAbsoluteUrls: true
+            }
           },
           {
             loader: 'css-loader',
