@@ -208,8 +208,8 @@ export default {
     //https://github.com/webpack-contrib/purifycss-webpack
     new PurifyCSSPlugin({
       paths: glob.sync([
-        join(__dirname, "src/*.pug"),
-        join(__dirname, "src/*.html"),
+        join(__dirname, "src/**/*.pug"),
+        join(__dirname, "src/**/*.html"),
         join(__dirname, "src/**/*.js")
       ]),
       purifyOptions: { whitelist: [".fa-github"] }
@@ -223,6 +223,13 @@ export default {
         collapseWhitespace: true,
         removeComments: true
       }
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Kit de inicio',
+      msg: 'Difunde la palabra DevexTeam <3',
+      filename: './mensaje.html',
+      template: './index.html',
+      minify: false, // { collapseWhitespace: true, removeComments: true }
     }),
     new CleanWebpackPlugin(pathsToClean, cleanOptions),
   ],
