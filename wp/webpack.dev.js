@@ -203,6 +203,7 @@ export default {
     }),
     new HtmlWebpackPlugin({
       title: 'Kit de inicio',
+      msg: 'Difunde la palabra DevexTeam <3',
       filename: './index.html',
       template: './index.pug',
       minify: false, // { collapseWhitespace: true, removeComments: true }

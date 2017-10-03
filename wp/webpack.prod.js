@@ -141,7 +141,6 @@ export default {
         ]
       }
     ],
-
   },
   plugins: [
     //new DashboardPlugin(),
