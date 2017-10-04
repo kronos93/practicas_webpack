@@ -70,6 +70,11 @@ export default {
         use: [
           {
             loader: 'style-loader',
+            options: {
+              hmr: true,
+              sourceMap: true,
+              convertToAbsoluteUrls: true
+            }
           },
           {
             loader: 'css-loader',
@@ -206,6 +211,13 @@ export default {
       msg: 'Difunde la palabra DevexTeam <3',
       filename: './index.html',
       template: './index.pug',
+      minify: false, // { collapseWhitespace: true, removeComments: true }
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Kit de inicio',
+      msg: 'Difunde la palabra DevexTeam <3',
+      filename: './mensaje.html',
+      template: './index.html',
       minify: false, // { collapseWhitespace: true, removeComments: true }
     }),
     new CleanWebpackPlugin(pathsToClean, cleanOptions),
